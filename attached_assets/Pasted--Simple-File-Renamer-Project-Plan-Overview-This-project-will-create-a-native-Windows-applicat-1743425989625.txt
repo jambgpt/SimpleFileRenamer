@@ -1,0 +1,164 @@
+# Simple File Renamer - Project Plan
+
+## Overview
+This project will create a native Windows application using C# and .NET that allows users to easily rename multiple files using pattern-based rules. The application will feature a graphical user interface and Windows Explorer context menu integration.
+
+## Technology Stack
+- **Language**: C# with .NET 8+
+- **UI Framework**: WinUI 3 (or WPF as an alternative)
+- **IDE**: Visual Studio
+- **Testing**: MSTest, NUnit, or xUnit for unit testing
+- **Installer**: WiX Toolset or MSIX packaging
+
+## Phase 1: Core Application Logic & Basic UI
+
+### Step 1: Project Setup & Basic Window
+**Goal**: Create the basic application structure and main window.
+
+**Tasks**:
+- [ ] Create a new WinUI 3 Desktop project in Visual Studio
+- [ ] Design basic main window layout in XAML
+- [ ] Create placeholders for:
+  - [ ] File list area
+  - [ ] Pattern input area
+  - [ ] Preview area
+- [ ] Ensure the project builds and runs
+
+**Testing**: Verify the main window appears without errors
+
+**Estimated Time**: 1 day
+
+### Step 2: Core Renaming Logic Implementation
+**Goal**: Create the core logic for parsing patterns and generating new filenames.
+
+**Tasks**:
+- [ ] Create class files:
+  - [ ] `RenamerLogic.cs`
+  - [ ] `PatternParser.cs`
+- [ ] Implement methods for:
+  - [ ] Processing original filenames with pattern definitions
+  - [ ] Generating proposed new filenames
+  - [ ] Handling basic pattern formats (prefix, suffix, sequence)
+  - [ ] Error handling for invalid patterns
+- [ ] Write unit tests for all logic functions
+
+**Testing**: Run unit tests to verify renaming logic works correctly
+
+**Estimated Time**: 2-3 days
+
+### Step 3: File Selection & Display
+**Goal**: Allow users to select files/folders and display them in the UI.
+
+**Tasks**:
+- [ ] Add UI elements:
+  - [ ] "Add Files" button
+  - [ ] "Add Folder" button
+  - [ ] ListView/DataGrid for displaying files
+- [ ] Implement file selection using Windows file picker dialogs
+- [ ] Implement folder selection using Windows folder picker dialogs
+- [ ] Display selected files in the list control with details
+
+**Testing**: Verify file/folder selection and display works correctly
+
+**Estimated Time**: 1-2 days
+
+## Phase 2: Integrating Logic with UI & Preview
+
+### Step 4: Pattern Input UI
+**Goal**: Create UI elements for defining renaming patterns.
+
+**Tasks**:
+- [ ] Add UI controls for pattern definition:
+  - [ ] Text box for "Prefix"
+  - [ ] Text box for "Suffix"
+  - [ ] Controls for number sequence (start #, increment)
+  - [ ] "Find & Replace" text box pair
+- [ ] Layout controls in a logical manner
+
+**Testing**: Verify pattern input controls appear correctly and accept input
+
+**Estimated Time**: 1 day
+
+### Step 5: Live Preview Functionality
+**Goal**: Connect the UI components to show a live preview of proposed filenames.
+
+**Tasks**:
+- [ ] Add "New Name" column to file list control
+- [ ] Implement event handlers for UI control changes
+- [ ] Connect file list and pattern inputs to core renaming logic
+- [ ] Update preview dynamically when selections or patterns change
+- [ ] Implement error handling for invalid patterns
+- [ ] Add visual indicators for potential filename conflicts
+
+**Testing**: Verify live preview updates correctly with different patterns
+
+**Estimated Time**: 2-3 days
+
+## Phase 3: Execution and OS Integration
+
+### Step 6: Execute Renaming Operation
+**Goal**: Implement the functionality to perform actual file renaming.
+
+**Tasks**:
+- [ ] Add "Rename Files" button to UI
+- [ ] Implement button click event handler
+- [ ] Use System.IO APIs to perform file renaming
+- [ ] Implement robust error handling:
+  - [ ] File locked errors
+  - [ ] Permission denied errors
+  - [ ] Invalid character errors
+  - [ ] Name collision handling
+  - [ ] Long path issues
+- [ ] Provide user feedback for success/failure
+- [ ] Update UI to reflect renamed files
+
+**Testing**: Test renaming with various scenarios (locked files, permissions, invalid names, etc.)
+
+**Estimated Time**: 2-3 days
+
+### Step 7: Windows Context Menu Integration
+**Goal**: Add right-click menu option in Windows File Explorer.
+
+**Tasks**:
+- [ ] Create component for shell extension:
+  - [ ] C++ DLL project implementing IContextMenu, or
+  - [ ] C# class library using SharpShell
+- [ ] Implement menu item for "Rename with SimpleRenamer"
+- [ ] Configure extension to launch main application with selected files
+- [ ] Modify main application to accept command-line arguments
+- [ ] Create installer for registering shell extension
+
+**Testing**: Verify context menu appears and launches application correctly
+
+**Estimated Time**: 3-4 days
+
+## Phase 4: Refinement and Release Prep
+
+### Step 8: Features, Polish & Packaging
+**Goal**: Refine the application and prepare for distribution.
+
+**Tasks**:
+- [ ] Implement Undo functionality
+- [ ] Add settings dialog
+  - [ ] Save/load default patterns
+  - [ ] Theme options
+- [ ] Improve error reporting and logging
+- [ ] Refine UI based on usability testing
+- [ ] Create application icon
+- [ ] Write documentation/help guides
+- [ ] Finalize installer/uninstaller
+- [ ] Code sign the application (optional)
+
+**Testing**: Test undo functionality, settings persistence, and installation process
+
+**Estimated Time**: 3-4 days
+
+## Total Estimated Time
+13-17 days (approx. 3-4 weeks)
+
+## Notes
+- Use version control (Git) throughout development
+- Commit code frequently at logical milestones
+- Test thoroughly at each step before proceeding
+- Consider accessibility features if time permits
+- Plan for potential extensions (regex support, metadata extraction, etc.)
