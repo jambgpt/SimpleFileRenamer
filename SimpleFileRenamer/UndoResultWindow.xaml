@@ -1,0 +1,59 @@
+<Window x:Class="SimpleFileRenamer.UndoResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Undo Results" 
+        Height="450" 
+        Width="600"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <TextBlock Grid.Row="0" 
+                   x:Name="ResultSummary"
+                   Text="Some files could not be restored to their original names:" 
+                   FontWeight="SemiBold" 
+                   Margin="0,0,0,12"
+                   TextWrapping="Wrap"/>
+        
+        <!-- Subheader -->
+        <TextBlock Grid.Row="1" 
+                   Text="The following files encountered errors during the undo operation:" 
+                   Margin="0,0,0,8"/>
+        
+        <!-- List of failed items -->
+        <ListView x:Name="FailedItemsListView" 
+                  Grid.Row="2"
+                  Margin="0,0,0,12"
+                  BorderThickness="1"
+                  BorderBrush="#CCCCCC">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Original Path" 
+                                    DisplayMemberBinding="{Binding Item.OriginalPath}" 
+                                    Width="240"/>
+                    <GridViewColumn Header="Renamed Path" 
+                                    DisplayMemberBinding="{Binding Item.NewPath}" 
+                                    Width="240"/>
+                    <GridViewColumn Header="Error" 
+                                    DisplayMemberBinding="{Binding Reason}" 
+                                    Width="240"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <!-- Action buttons -->
+        <Button Grid.Row="3" 
+                Content="Close" 
+                Padding="12,6"
+                HorizontalAlignment="Right"
+                IsCancel="True"
+                IsDefault="True"/>
+    </Grid>
+</Window>

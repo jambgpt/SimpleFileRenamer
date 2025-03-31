@@ -1,0 +1,110 @@
+<Window x:Class="SimpleFileRenamer.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" 
+        Height="450" 
+        Width="600"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Settings Categories -->
+        <TabControl Grid.Row="1" Margin="0,12">
+            <!-- Appearance Tab -->
+            <TabItem Header="Appearance">
+                <StackPanel Margin="16">
+                    <GroupBox Header="Theme" Padding="12,8,12,16">
+                        <StackPanel>
+                            <RadioButton x:Name="LightThemeRadio" 
+                                         Content="Light Theme" 
+                                         Margin="0,8,0,8"
+                                         IsChecked="True"/>
+                            <RadioButton x:Name="DarkThemeRadio" 
+                                         Content="Dark Theme" 
+                                         Margin="0,0,0,8"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            
+            <!-- General Tab -->
+            <TabItem Header="General">
+                <StackPanel Margin="16">
+                    <GroupBox Header="File Renaming" Padding="12,8,12,16">
+                        <StackPanel>
+                            <CheckBox x:Name="CreateUndoFileCheckbox" 
+                                      Content="Create undo file by default" 
+                                      Margin="0,8,0,8"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+            
+            <!-- Patterns Tab -->
+            <TabItem Header="Patterns">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <ListView x:Name="PatternsListView" 
+                              Grid.Row="0"
+                              Margin="0,0,0,12"
+                              SelectionMode="Single"
+                              BorderThickness="1"
+                              BorderBrush="#CCCCCC">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Pattern Name" 
+                                                DisplayMemberBinding="{Binding Name}" 
+                                                Width="150"/>
+                                <GridViewColumn Header="Description" 
+                                                DisplayMemberBinding="{Binding Description}" 
+                                                Width="380"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                    <StackPanel Grid.Row="1" 
+                                Orientation="Horizontal">
+                        <Button x:Name="SaveCurrentPatternButton" 
+                                Content="Save Current Pattern" 
+                                Padding="12,6" 
+                                Margin="0,0,8,0"
+                                Click="SaveCurrentPatternButton_Click"/>
+                        <Button x:Name="DeletePatternButton" 
+                                Content="Delete Selected" 
+                                Padding="12,6" 
+                                Margin="0,0,8,0"
+                                Click="DeletePatternButton_Click"/>
+                        <Button x:Name="LoadPatternButton" 
+                                Content="Load Selected" 
+                                Padding="12,6" 
+                                Margin="0,0,8,0"
+                                Click="LoadPatternButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
+        <!-- Action buttons -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Content="Cancel" 
+                    Padding="12,6" 
+                    Margin="0,0,8,0"
+                    IsCancel="True"/>
+            <Button Content="Save" 
+                    Padding="12,6"
+                    Click="SaveButton_Click"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

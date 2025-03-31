@@ -36,24 +36,39 @@
                        Margin="0,0,0,12"/>
             
             <!-- File/Folder selection buttons -->
-            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                <Button x:Name="AddFilesButton" 
-                        Content="Add Files" 
+            <Grid Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal">
+                    <Button x:Name="AddFilesButton" 
+                            Content="Add Files" 
+                            Padding="12,6"
+                            Margin="0,0,8,0"
+                            Click="AddFilesButton_Click"/>
+                    <Button x:Name="AddFolderButton" 
+                            Content="Add Folder" 
+                            Padding="12,6"
+                            Margin="0,0,8,0"
+                            Click="AddFolderButton_Click"/>
+                    <Button x:Name="ClearListButton" 
+                            Content="Clear List" 
+                            Padding="12,6"
+                            Margin="0,0,8,0"
+                            Click="ClearListButton_Click"
+                            Background="#777777"/>
+                </StackPanel>
+                
+                <Button Grid.Column="1" 
+                        x:Name="SettingsButton" 
+                        Content="Settings" 
                         Padding="12,6"
-                        Margin="0,0,8,0"
-                        Click="AddFilesButton_Click"/>
-                <Button x:Name="AddFolderButton" 
-                        Content="Add Folder" 
-                        Padding="12,6"
-                        Margin="0,0,8,0"
-                        Click="AddFolderButton_Click"/>
-                <Button x:Name="ClearListButton" 
-                        Content="Clear List" 
-                        Padding="12,6"
-                        Margin="0,0,8,0"
-                        Click="ClearListButton_Click"
-                        Background="#777777"/>
-            </StackPanel>
+                        HorizontalAlignment="Right"
+                        Click="SettingsButton_Click"/>
+            </Grid>
         </StackPanel>
 
         <!-- Pattern input area -->
@@ -69,8 +84,8 @@
 
         <!-- Status area -->
         <Border Grid.Row="3" 
-                Background="White" 
-                BorderBrush="#CCCCCC" 
+                Background="{StaticResource ControlBackgroundBrush}" 
+                BorderBrush="{StaticResource BorderBrush}" 
                 BorderThickness="1" 
                 Padding="8" 
                 Margin="0,0,0,12">
@@ -98,6 +113,17 @@
             <StackPanel Grid.Column="1" 
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
+                <Button x:Name="UndoButton" 
+                        Content="Undo Last Operation" 
+                        Padding="12,8" 
+                        Margin="0,0,8,0"
+                        Click="UndoButton_Click"
+                        IsEnabled="{Binding CanUndo}"/>
+                <Button x:Name="UndoHistoryButton" 
+                        Content="Undo History" 
+                        Padding="12,8" 
+                        Margin="0,0,8,0"
+                        Click="UndoHistoryButton_Click"/>
                 <Button x:Name="RenameFilesButton" 
                         Content="Rename Files" 
                         Padding="16,8" 

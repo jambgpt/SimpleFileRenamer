@@ -1,0 +1,83 @@
+<Window x:Class="SimpleFileRenamer.UndoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Undo File Renaming" 
+        Height="450" 
+        Width="600"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <TextBlock Grid.Row="0" 
+                   Text="Select a previous rename operation to undo:" 
+                   FontWeight="SemiBold" 
+                   Margin="0,0,0,12"/>
+        
+        <!-- List of undo files -->
+        <ListView x:Name="UndoFilesListView" 
+                  Grid.Row="1"
+                  Margin="0,0,0,12"
+                  SelectionMode="Single"
+                  BorderThickness="1"
+                  BorderBrush="#CCCCCC"
+                  SelectionChanged="UndoFilesListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Date and Time" 
+                                    DisplayMemberBinding="{Binding OperationTime, StringFormat='{}{0:g}'}" 
+                                    Width="150"/>
+                    <GridViewColumn Header="Description" 
+                                    DisplayMemberBinding="{Binding DisplayName}" 
+                                    Width="380"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <!-- No items message -->
+        <TextBlock x:Name="NoItemsMessage" 
+                   Grid.Row="1"
+                   Text="No undo files available. Undo files are created when you perform rename operations." 
+                   TextWrapping="Wrap"
+                   Visibility="Collapsed"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Foreground="#666666"/>
+        
+        <!-- Help text -->
+        <TextBlock Grid.Row="2"
+                   Text="Warning: Undo operations will attempt to restore files to their original names. This may not be possible if files have been moved or deleted since the rename operation."
+                   TextWrapping="Wrap"
+                   Margin="0,0,0,16"
+                   Foreground="#666666"/>
+        
+        <!-- Action buttons -->
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button x:Name="RefreshButton"
+                    Content="Refresh" 
+                    Padding="12,6" 
+                    Margin="0,0,8,0"
+                    Click="RefreshButton_Click"/>
+            <Button x:Name="CloseButton"
+                    Content="Close" 
+                    Padding="12,6" 
+                    Margin="0,0,8,0"
+                    IsCancel="True"/>
+            <Button x:Name="UndoButton" 
+                    Content="Undo Selected Operation" 
+                    Padding="12,6"
+                    Click="UndoButton_Click"
+                    IsEnabled="False"
+                    IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

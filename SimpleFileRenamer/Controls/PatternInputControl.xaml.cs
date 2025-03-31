@@ -21,6 +21,63 @@ namespace SimpleFileRenamer.Controls
         {
             InitializeComponent();
         }
+        
+        /// <summary>
+        /// Loads a pattern into the control
+        /// </summary>
+        /// <param name="pattern">The pattern to load</param>
+        public void LoadPattern(RenamePattern pattern)
+        {
+            if (pattern == null) return;
+            
+            // Set the text inputs
+            PrefixTextBox.Text = pattern.Prefix ?? string.Empty;
+            SuffixTextBox.Text = pattern.Suffix ?? string.Empty;
+            FindTextBox.Text = pattern.FindText ?? string.Empty;
+            ReplaceTextBox.Text = pattern.ReplaceText ?? string.Empty;
+            
+            // Set checkboxes
+            UseRegexCheckBox.IsChecked = pattern.UseRegex;
+            UseSequenceCheckBox.IsChecked = pattern.UseSequence;
+            
+            // Set sequence options
+            SequenceStartTextBox.Text = pattern.SequenceStart.ToString();
+            SequenceIncrementTextBox.Text = pattern.SequenceIncrement.ToString();
+            SequenceFormatTextBox.Text = pattern.SequenceFormat ?? "0";
+            
+            // Set sequence position
+            ComboBoxItem? positionItem = null;
+            switch (pattern.SequencePosition)
+            {
+                case SequencePosition.Prefix:
+                    positionItem = SequencePositionComboBox.Items.Cast<ComboBoxItem>()
+                        .FirstOrDefault(i => i.Tag.ToString() == "Prefix");
+                    break;
+                case SequencePosition.Suffix:
+                    positionItem = SequencePositionComboBox.Items.Cast<ComboBoxItem>()
+                        .FirstOrDefault(i => i.Tag.ToString() == "Suffix");
+                    break;
+                case SequencePosition.Replace:
+                    positionItem = SequencePositionComboBox.Items.Cast<ComboBoxItem>()
+                        .FirstOrDefault(i => i.Tag.ToString() == "Replace");
+                    break;
+            }
+            
+            if (positionItem != null)
+                SequencePositionComboBox.SelectedItem = positionItem;
+                
+            // Update sequence controls state
+            SequenceStartTextBox.IsEnabled = pattern.UseSequence;
+            SequenceIncrementTextBox.IsEnabled = pattern.UseSequence;
+            SequenceFormatTextBox.IsEnabled = pattern.UseSequence;
+            SequencePositionComboBox.IsEnabled = pattern.UseSequence;
+            
+            // Update the pattern in the view model
+            UpdatePatternFromInputs();
+            
+            // Trigger pattern changed event
+            PatternChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         /// <summary>
         /// Sets the view model for the control

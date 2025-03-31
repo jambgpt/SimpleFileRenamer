@@ -2,10 +2,14 @@ using Microsoft.Win32;
 using SimpleFileRenamer.Core;
 using SimpleFileRenamer.Models;
 using SimpleFileRenamer.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
@@ -18,9 +22,16 @@ namespace SimpleFileRenamer
     {
         private readonly MainViewModel _viewModel;
         private readonly RenamerLogic _renamerLogic;
+        private AppSettings _settings;
 
         public MainWindow()
         {
+            // Load settings first
+            _settings = AppSettings.Load();
+            
+            // Apply theme
+            ThemeManager.ApplyTheme(_settings.Theme);
+            
             InitializeComponent();
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
@@ -28,6 +39,9 @@ namespace SimpleFileRenamer
 
             FileList.SetViewModel(_viewModel);
             PatternInput.SetViewModel(_viewModel);
+            
+            // Apply settings
+            CreateUndoFileCheckbox.IsChecked = _settings.CreateUndoFileByDefault;
         }
 
         public MainWindow(List<string> filePaths) : this()
@@ -81,6 +95,37 @@ namespace SimpleFileRenamer
         private void RenameFilesButton_Click(object sender, RoutedEventArgs e)
         {
             ExecuteRenaming();
+        }
+        
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Pass the current pattern to the settings window
+            var currentPattern = _viewModel.RenamePattern?.Clone();
+            
+            var settingsWindow = new SettingsWindow(_settings, currentPattern);
+            settingsWindow.Owner = this;
+            if (settingsWindow.ShowDialog() == true)
+            {
+                // Settings were updated
+                _settings = settingsWindow.UpdatedSettings;
+                _settings.Save();
+                
+                // Apply new theme if changed
+                ThemeManager.ApplyTheme(_settings.Theme);
+                
+                // Apply other settings
+                CreateUndoFileCheckbox.IsChecked = _settings.CreateUndoFileByDefault;
+                
+                // Apply saved patterns to pattern control if needed
+                if (_settings.DefaultPatterns?.Count > 0 && settingsWindow.ShouldLoadDefaultPattern)
+                {
+                    // Load the first default pattern
+                    PatternInput.LoadPattern(_settings.DefaultPatterns[0]);
+                    UpdateFilePreview();
+                }
+                
+                StatusText.Text = "Settings updated";
+            }
         }
 
         private void LoadFilesFromPaths(List<string> filePaths)
@@ -153,6 +198,87 @@ namespace SimpleFileRenamer
             RenameFilesButton.IsEnabled = hasValidFiles;
         }
 
+        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if there's a last undo file
+            if (string.IsNullOrEmpty(_viewModel.LastUndoFilePath))
+            {
+                MessageBox.Show(
+                    "No recent rename operation to undo.",
+                    "Undo",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+            
+            // Confirm with the user
+            var result = MessageBox.Show(
+                "Are you sure you want to undo the last rename operation?",
+                "Confirm Undo",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+                
+            if (result != MessageBoxResult.Yes) return;
+            
+            // Process the undo file
+            try
+            {
+                var undoResult = _viewModel.ProcessUndoFile(_viewModel.LastUndoFilePath);
+                
+                // Display the result
+                if (undoResult.Success)
+                {
+                    if (undoResult.FailedItems.Count > 0)
+                    {
+                        var detailsWindow = new UndoResultWindow(undoResult);
+                        detailsWindow.Owner = this;
+                        detailsWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "All files were successfully restored to their original names.",
+                            "Undo Successful",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                    }
+                    
+                    // Clear the last undo file path
+                    _viewModel.LastUndoFilePath = string.Empty;
+                    
+                    // Update status
+                    StatusText.Text = undoResult.Message;
+                }
+                else
+                {
+                    MessageBox.Show(
+                        $"Failed to undo the rename operation: {undoResult.Message}",
+                        "Undo Failed",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error during undo operation: {ex.Message}",
+                    "Undo Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+        
+        private void UndoHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var undoWindow = new UndoWindow();
+            undoWindow.Owner = this;
+            undoWindow.ShowDialog();
+            
+            // Refresh the file list after undo operations
+            FileList.RefreshList();
+            UpdateRenameButtonState();
+        }
+        
         private void ExecuteRenaming()
         {
             try
@@ -168,29 +294,33 @@ namespace SimpleFileRenamer
                     return;
                 }
 
-                // Create undo file if the option is checked
+                // Create lists for undo file
+                var originalPaths = new List<string>();
+                var newPaths = new List<string>();
+                
+                foreach (var file in filesToRename)
+                {
+                    originalPaths.Add(file.FullPath);
+                    var directory = Path.GetDirectoryName(file.FullPath) ?? string.Empty;
+                    var newFullPath = Path.Combine(directory, file.NewFileName);
+                    newPaths.Add(newFullPath);
+                }
+                
+                // Create undo file
                 if (CreateUndoFileCheckbox.IsChecked == true)
                 {
-                    var saveFileDialog = new SaveFileDialog
+                    try
                     {
-                        Title = "Save undo file",
-                        Filter = "Text files (*.txt)|*.txt",
-                        FileName = $"UndoRename_{DateTime.Now:yyyyMMdd_HHmmss}.txt"
-                    };
-
-                    if (saveFileDialog.ShowDialog() == true)
+                        string undoFilePath = _viewModel.CreateUndoFile(originalPaths, newPaths);
+                        StatusText.Text = $"Undo file created: {undoFilePath}";
+                    }
+                    catch (Exception ex)
                     {
-                        using var writer = new StreamWriter(saveFileDialog.FileName);
-                        writer.WriteLine("# Rename Undo File - Generated on: " + DateTime.Now.ToString());
-                        writer.WriteLine("# To use this file for manual undo, rename files back using the pairs listed below");
-                        writer.WriteLine();
-                        
-                        foreach (var file in filesToRename)
-                        {
-                            var directory = Path.GetDirectoryName(file.FullPath) ?? string.Empty;
-                            var newFullPath = Path.Combine(directory, file.NewFileName);
-                            writer.WriteLine($"{newFullPath}|{file.FullPath}");
-                        }
+                        MessageBox.Show(
+                            $"Could not create undo file: {ex.Message}",
+                            "Undo File Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
                     }
                 }
 

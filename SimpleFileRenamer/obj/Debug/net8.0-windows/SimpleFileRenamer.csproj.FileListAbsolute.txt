@@ -28,3 +28,9 @@
 /home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/SimpleFileRenamer.genruntimeconfig.cache
 /home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/ref/SimpleFileRenamer.dll
 /home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/SimpleFileRenamer.sourcelink.json
+/home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/InputDialog.baml
+/home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/Resources/DarkTheme.baml
+/home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/Resources/LightTheme.baml
+/home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/SettingsWindow.baml
+/home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/InputDialog.g.cs
+/home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/SettingsWindow.g.cs

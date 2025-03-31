@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 /home/runner/workspace/SimpleFileRenamer/App.xaml
-3-1462870
+7-1106620186
 
-12974898669
+17612354319
 208580493998
-Controls/FileListControl.xaml;Controls/PatternInputControl.xaml;MainWindow.xaml;
+Controls/FileListControl.xaml;Controls/PatternInputControl.xaml;InputDialog.xaml;MainWindow.xaml;Resources/DarkTheme.xaml;Resources/LightTheme.xaml;SettingsWindow.xaml;
 
 False
 

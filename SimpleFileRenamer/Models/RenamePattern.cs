@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace SimpleFileRenamer.Models
 {
     /// <summary>
@@ -64,5 +66,49 @@ namespace SimpleFileRenamer.Models
         /// Where the sequence number should be placed in the filename
         /// </summary>
         public SequencePosition SequencePosition { get; set; } = SequencePosition.Prefix;
+
+        /// <summary>
+        /// Creates a deep copy of this pattern
+        /// </summary>
+        /// <returns>A new instance with the same values</returns>
+        public RenamePattern Clone()
+        {
+            return new RenamePattern
+            {
+                Prefix = this.Prefix,
+                Suffix = this.Suffix,
+                FindText = this.FindText,
+                ReplaceText = this.ReplaceText,
+                UseRegex = this.UseRegex,
+                UseSequence = this.UseSequence,
+                SequenceStart = this.SequenceStart,
+                SequenceIncrement = this.SequenceIncrement,
+                SequenceFormat = this.SequenceFormat,
+                SequencePosition = this.SequencePosition
+            };
+        }
+
+        /// <summary>
+        /// Returns a string representation of this pattern
+        /// </summary>
+        /// <returns>A string describing the pattern</returns>
+        public override string ToString()
+        {
+            var result = "";
+            
+            if (!string.IsNullOrEmpty(Prefix))
+                result += $"Prefix: {Prefix}, ";
+                
+            if (!string.IsNullOrEmpty(Suffix))
+                result += $"Suffix: {Suffix}, ";
+                
+            if (!string.IsNullOrEmpty(FindText) && !string.IsNullOrEmpty(ReplaceText))
+                result += $"Find: {FindText}, Replace: {ReplaceText}, UseRegex: {UseRegex}, ";
+                
+            if (UseSequence)
+                result += $"Sequence: Start={SequenceStart}, Format={SequenceFormat}, Position={SequencePosition}";
+                
+            return result.TrimEnd(',', ' ');
+        }
     }
 }

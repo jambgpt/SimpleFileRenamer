@@ -1,3 +1,4 @@
+using SimpleFileRenamer.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
@@ -13,6 +14,10 @@ namespace SimpleFileRenamer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            
+            // Load application settings and apply theme
+            var settings = AppSettings.Load();
+            ThemeManager.ApplyTheme(settings.Theme);
             
             // Check if the application was launched with file paths as arguments
             if (e.Args.Length > 0)
