@@ -61,4 +61,11 @@ This will make your application available for download from GitHub.
 
 ## 6. Update README.md links
 
-After pushing to GitHub, update any links in your README.md file to point to your actual GitHub username instead of "yourusername".
+The README.md file has been prepared with placeholders that need to be updated after you create your GitHub repository:
+
+1. Replace "YOUR-USERNAME" in the clone URL with your actual GitHub username
+2. After you create your first release, update the installation instructions to point to the actual releases page
+
+Example changes:
+- Change `https://github.com/YOUR-USERNAME/SimpleFileRenamer.git` to your actual repository URL
+- Update "Download from the Releases page (will be available after first GitHub release)" with direct links to your releases page
