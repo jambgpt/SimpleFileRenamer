@@ -12,3 +12,4 @@
 /home/runner/workspace/SimpleFileRenamer.ShellExtension/obj/Debug/net8.0-windows/refint/SimpleFileRenamer.ShellExtension.dll
 /home/runner/workspace/SimpleFileRenamer.ShellExtension/obj/Debug/net8.0-windows/SimpleFileRenamer.ShellExtension.pdb
 /home/runner/workspace/SimpleFileRenamer.ShellExtension/obj/Debug/net8.0-windows/ref/SimpleFileRenamer.ShellExtension.dll
+/home/runner/workspace/SimpleFileRenamer.ShellExtension/obj/Debug/net8.0-windows/SimpleFileRenamer.ShellExtension.sourcelink.json

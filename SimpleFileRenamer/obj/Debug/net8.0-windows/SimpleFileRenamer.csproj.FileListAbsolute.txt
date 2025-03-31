@@ -27,3 +27,4 @@
 /home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/SimpleFileRenamer.pdb
 /home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/SimpleFileRenamer.genruntimeconfig.cache
 /home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/ref/SimpleFileRenamer.dll
+/home/runner/workspace/SimpleFileRenamer/obj/Debug/net8.0-windows/SimpleFileRenamer.sourcelink.json

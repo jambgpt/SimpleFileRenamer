@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SimpleFileRenamer.ShellExtension")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+88996bcc27f7db9b1ee4aa53603c13eea60a1e89")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+679cfc90ff73779f02ed0d1b266e0299bd4238c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimpleFileRenamer.ShellExtension")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimpleFileRenamer.ShellExtension")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

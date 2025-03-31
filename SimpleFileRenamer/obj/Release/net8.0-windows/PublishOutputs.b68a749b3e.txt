@@ -1,0 +1,6 @@
+/home/runner/workspace/release/SimpleFileRenamer/SimpleFileRenamer
+/home/runner/workspace/release/SimpleFileRenamer/SimpleFileRenamer.dll
+/home/runner/workspace/release/SimpleFileRenamer/SimpleFileRenamer.deps.json
+/home/runner/workspace/release/SimpleFileRenamer/SimpleFileRenamer.runtimeconfig.json
+/home/runner/workspace/release/SimpleFileRenamer/SimpleFileRenamer.pdb
+/home/runner/workspace/release/SimpleFileRenamer/CommunityToolkit.Mvvm.dll
