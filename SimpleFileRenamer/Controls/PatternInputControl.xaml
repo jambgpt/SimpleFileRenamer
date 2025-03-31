@@ -1,0 +1,155 @@
+<UserControl x:Class="SimpleFileRenamer.Controls.PatternInputControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleFileRenamer.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="800">
+    <Border Background="White" 
+            BorderBrush="#CCCCCC" 
+            BorderThickness="1" 
+            Padding="12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Basic options -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" 
+                           Text="Prefix:" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"/>
+                <TextBox Grid.Column="1" 
+                         x:Name="PrefixTextBox"
+                         Margin="0,0,16,0"
+                         TextChanged="Pattern_Changed"/>
+                
+                <TextBlock Grid.Column="2" 
+                           Text="Suffix:" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"/>
+                <TextBox Grid.Column="3" 
+                         x:Name="SuffixTextBox"
+                         TextChanged="Pattern_Changed"/>
+            </Grid>
+
+            <!-- Find and replace options -->
+            <Grid Grid.Row="1" Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" 
+                           Text="Find:" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"/>
+                <TextBox Grid.Column="1" 
+                         x:Name="FindTextBox"
+                         Margin="0,0,16,0"
+                         TextChanged="Pattern_Changed"/>
+                
+                <TextBlock Grid.Column="2" 
+                           Text="Replace:" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"/>
+                <TextBox Grid.Column="3" 
+                         x:Name="ReplaceTextBox"
+                         Margin="0,0,16,0"
+                         TextChanged="Pattern_Changed"/>
+                
+                <CheckBox Grid.Column="4" 
+                          x:Name="UseRegexCheckBox"
+                          Content="Use Regex"
+                          VerticalAlignment="Center"
+                          Checked="Pattern_Changed"
+                          Unchecked="Pattern_Changed"/>
+            </Grid>
+
+            <!-- Sequence options -->
+            <Grid Grid.Row="2" Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <CheckBox Grid.Column="0" 
+                          x:Name="UseSequenceCheckBox"
+                          Content="Add Sequence"
+                          VerticalAlignment="Center"
+                          Margin="0,0,16,0"
+                          Checked="UseSequenceCheckBox_CheckedChanged"
+                          Unchecked="UseSequenceCheckBox_CheckedChanged"/>
+                
+                <TextBlock Grid.Column="1" 
+                           Text="Start:" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"
+                           IsEnabled="{Binding ElementName=UseSequenceCheckBox, Path=IsChecked}"/>
+                <TextBox Grid.Column="2" 
+                         x:Name="SequenceStartTextBox"
+                         Width="60"
+                         Margin="0,0,16,0"
+                         Text="1"
+                         TextChanged="Pattern_Changed"
+                         IsEnabled="{Binding ElementName=UseSequenceCheckBox, Path=IsChecked}"/>
+                
+                <TextBlock Grid.Column="3" 
+                           Text="Increment:" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"
+                           IsEnabled="{Binding ElementName=UseSequenceCheckBox, Path=IsChecked}"/>
+                <TextBox Grid.Column="4" 
+                         x:Name="SequenceIncrementTextBox"
+                         Width="60"
+                         Margin="0,0,16,0"
+                         Text="1"
+                         TextChanged="Pattern_Changed"
+                         IsEnabled="{Binding ElementName=UseSequenceCheckBox, Path=IsChecked}"/>
+                
+                <TextBlock Grid.Column="5" 
+                           Text="Format:" 
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"
+                           IsEnabled="{Binding ElementName=UseSequenceCheckBox, Path=IsChecked}"/>
+                <TextBox Grid.Column="6" 
+                         x:Name="SequenceFormatTextBox"
+                         Width="60"
+                         Margin="0,0,16,0"
+                         Text="000"
+                         TextChanged="Pattern_Changed"
+                         IsEnabled="{Binding ElementName=UseSequenceCheckBox, Path=IsChecked}"/>
+                
+                <ComboBox Grid.Column="7" 
+                          x:Name="SequencePositionComboBox"
+                          Margin="0,0,0,0"
+                          SelectionChanged="Pattern_Changed"
+                          IsEnabled="{Binding ElementName=UseSequenceCheckBox, Path=IsChecked}">
+                    <ComboBoxItem Content="Add as Prefix" Tag="Prefix" IsSelected="True"/>
+                    <ComboBoxItem Content="Add as Suffix" Tag="Suffix"/>
+                    <ComboBoxItem Content="Replace Filename" Tag="Replace"/>
+                </ComboBox>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

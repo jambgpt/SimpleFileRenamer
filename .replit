@@ -1,0 +1,52 @@
+modules = ["dotnet", "dotnet-8.0"]
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "SimpleFileRenamer"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "build_and_run"
+
+[[workflows.workflow]]
+name = "SimpleFileRenamer"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet run --project SimpleFileRenamer/SimpleFileRenamer.csproj"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "build_and_run"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "dotnet build SimpleFileRenamer.sln && dotnet run --project SimpleFileRenamer/SimpleFileRenamer.csproj"
+
+[deployment]
+run = ["sh", "-c", "dotnet run --project SimpleFileRenamer/SimpleFileRenamer.csproj"]
