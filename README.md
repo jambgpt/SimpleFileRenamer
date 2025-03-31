@@ -35,13 +35,13 @@ Simple File Renamer supports various patterns to help you rename your files:
 
 ### Option 1: Installer
 
-1. Download the latest installer from the [Releases](https://github.com/yourusername/SimpleFileRenamer/releases) page
+1. Download the latest installer from the Releases page (will be available after first GitHub release)
 2. Run the installer and follow the prompts
 3. Launch Simple File Renamer from the Start menu
 
 ### Option 2: Portable Version
 
-1. Download the portable zip from the [Releases](https://github.com/yourusername/SimpleFileRenamer/releases) page
+1. Download the portable zip from the Releases page (will be available after first GitHub release)
 2. Extract the zip to a location of your choice
 3. Run `SimpleFileRenamer.exe` from the extracted folder
 4. (Optional) Install the shell extension by running `install_shell_extension.bat` as administrator
@@ -62,8 +62,9 @@ Right-click on selected files in Windows Explorer to see the "Rename with Simple
 
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/SimpleFileRenamer.git
+   git clone https://github.com/YOUR-USERNAME/SimpleFileRenamer.git
    ```
+   (Replace YOUR-USERNAME with your actual GitHub username after creating the repository)
 
 2. Open the solution in Visual Studio
    ```
