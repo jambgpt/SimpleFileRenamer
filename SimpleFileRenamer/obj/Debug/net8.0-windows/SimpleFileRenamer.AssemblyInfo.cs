@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright © 2023")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A tool for batch renaming files with pattern-based rules")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+679cfc90ff73779f02ed0d1b266e0299bd4238c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8be1cbdd6315cebd4f81039d68a6bea6c5940442")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimpleFileRenamer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimpleFileRenamer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

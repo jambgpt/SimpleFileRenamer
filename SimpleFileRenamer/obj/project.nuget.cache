@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "rW1oLukDki0=",
+  "dgSpecHash": "RJ+H8yg1qy4=",
   "success": true,
   "projectFilePath": "/home/runner/workspace/SimpleFileRenamer/SimpleFileRenamer.csproj",
   "expectedPackageFiles": [
     "/home/runner/.nuget/packages/communitytoolkit.mvvm/8.2.2/communitytoolkit.mvvm.8.2.2.nupkg.sha512",
-    "/home/runner/.nuget/packages/microsoft.windowsdesktop.app.ref/8.0.11/microsoft.windowsdesktop.app.ref.8.0.11.nupkg.sha512"
+    "/home/runner/.nuget/packages/microsoft.netcore.app.runtime.win-x64/8.0.11/microsoft.netcore.app.runtime.win-x64.8.0.11.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.windowsdesktop.app.ref/8.0.11/microsoft.windowsdesktop.app.ref.8.0.11.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.windowsdesktop.app.runtime.win-x64/8.0.11/microsoft.windowsdesktop.app.runtime.win-x64.8.0.11.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.aspnetcore.app.runtime.win-x64/8.0.11/microsoft.aspnetcore.app.runtime.win-x64.8.0.11.nupkg.sha512",
+    "/home/runner/.nuget/packages/microsoft.netcore.app.host.win-x64/8.0.11/microsoft.netcore.app.host.win-x64.8.0.11.nupkg.sha512"
   ],
   "logs": []
 }

@@ -115,3 +115,4 @@
 /home/runner/workspace/SimpleFileRenamer.Tests/obj/Debug/net8.0-windows/SimpleFileRenamer.Tests.pdb
 /home/runner/workspace/SimpleFileRenamer.Tests/obj/Debug/net8.0-windows/SimpleFileRenamer.Tests.genruntimeconfig.cache
 /home/runner/workspace/SimpleFileRenamer.Tests/obj/Debug/net8.0-windows/ref/SimpleFileRenamer.Tests.dll
+/home/runner/workspace/SimpleFileRenamer.Tests/obj/Debug/net8.0-windows/SimpleFileRenamer.Tests.sourcelink.json
